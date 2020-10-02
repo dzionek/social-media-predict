@@ -1,0 +1,12 @@
+[run]
+omit =
+    venv/*,
+    frontend/*,
+    manage.py,
+    */migrations/*,
+    social_media_predict/asgi.py,
+    social_media_predict/wsgi.py,
+    */__init__.py,
+    tests/*,
+    */tests.py,
+

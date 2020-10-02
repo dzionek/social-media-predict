@@ -1,0 +1,49 @@
+{
+  "name": "frontend",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "webpack --mode development ./src/index.tsx",
+    "dev:watch": "webpack --mode development --watch ./src/index.tsx",
+    "build": "webpack --mode production ./src/index.tsx",
+    "eslint": "npx eslint . --ext .js,.jsx,.ts,.tsx",
+    "test": "jest --silent",
+    "test:watch": "jest --watch"
+  },
+  "author": "Bartosz Dzionek",
+  "license": "MIT",
+  "devDependencies": {
+    "@testing-library/dom": "^7.24.1",
+    "@testing-library/jest-dom": "^5.11.4",
+    "@testing-library/react": "^11.0.1",
+    "@testing-library/user-event": "^12.1.4",
+    "@types/jest": "^26.0.13",
+    "@types/node": "^14.6.2",
+    "@types/react": "^16.9.48",
+    "@types/react-color": "^3.0.4",
+    "@types/react-dom": "^16.9.8",
+    "@typescript-eslint/eslint-plugin": "^4.0.1",
+    "@typescript-eslint/parser": "^4.0.1",
+    "css-loader": "^4.2.2",
+    "eslint": "^7.8.1",
+    "eslint-plugin-react": "^7.20.6",
+    "jest": "^26.4.2",
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1",
+    "sass": "^1.26.10",
+    "sass-loader": "^10.0.1",
+    "style-loader": "^1.2.1",
+    "ts-jest": "^26.3.0",
+    "ts-loader": "^8.0.3",
+    "typescript": "^4.0.2",
+    "webpack": "^4.44.1",
+    "webpack-cli": "^3.3.12"
+  },
+  "dependencies": {
+    "axios": "^0.20.0",
+    "moment": "^2.27.0",
+    "react-color": "^2.18.1",
+    "react-icons": "^3.11.0"
+  }
+}

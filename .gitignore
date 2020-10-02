@@ -1,0 +1,24 @@
+# Cache
+.mypy_cache
+.pytest_cache
+
+# Pycharm
+.idea/
+
+# Virtual env
+venv/
+
+# SQL Lite Database
+db.sqlite3
+
+# Django migartions
+*/migrations/*
+!*/migrations/__init__.py
+
+# Coverage
+.coverage
+frontend/coverage/
+
+# Frontend
+frontend/node_modules/
+frontend/static/

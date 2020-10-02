@@ -1,0 +1,34 @@
+jobs:
+  include:
+    - language: node_js
+      node_js: 14
+
+      before_install: cd frontend
+      install: npm i
+
+      before_script: npm install --save-dev codecov
+
+      script:
+        - npm run test
+        - npm run eslint
+
+      after_success: ./node_modules/.bin/codecov
+
+    - language: python
+      python: 3.8
+
+      install:
+      - pip install -r requirements.txt
+      - pip install codecov
+
+      before_script:
+        - python manage.py makemigrations
+        - python manage.py migrate
+
+      script:
+        - pytest --ignore=frontend --cov-report=xml --cov-config=.coveragerc --cov=.
+        - mypy .
+        - flake8
+
+      after_success:
+        - codecov

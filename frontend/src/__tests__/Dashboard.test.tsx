@@ -6,7 +6,7 @@ import Dashboard from "../components/Dashboard"
 describe("<Dashboard/>", () => {
     it("renders correctly", () => {
         const {getByText} = render(<Dashboard/>)
-        getByText("Choose platform")
+        getByText("Choose the platform.")
     })
 
     it("changes platforms", () => {

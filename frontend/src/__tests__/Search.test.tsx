@@ -14,6 +14,10 @@ describe("<Search/>", () => {
         const {getByText, getByPlaceholderText} = render(<Dashboard/>)
 
         fireEvent.click(getByText("YouTube"))
+
+        fireEvent.click(getByText("Predict"))
+        expect(consoleOutput).toEqual([])
+
         userEvent.type(getByPlaceholderText("username"), "testUser")
         fireEvent.click(getByText("Predict"))
 

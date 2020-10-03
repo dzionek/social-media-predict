@@ -26,7 +26,7 @@ body {
   }
 
   .github-icon:hover {
-    animation:spin 2s linear forwards;
+    animation:spin 2s linear infinite;
   }
 }
 
@@ -115,8 +115,8 @@ body {
   #predict-button {
     background: black;
     width: 100%;
-    color: #660000;
-    border: #660000 solid 5px;
+    color: maroon;
+    border: maroon solid 5px;
     font-size: 1.5rem;
     font-weight: bolder;
     border-radius: 5%;
@@ -125,7 +125,7 @@ body {
   }
 
   #predict-button:hover {
-    background: #660000;
+    background: maroon;
     color: white;
   }
 }

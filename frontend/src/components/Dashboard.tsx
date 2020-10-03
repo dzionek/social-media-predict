@@ -22,14 +22,13 @@ function Dashboard(): JSX.Element {
                 </a>
             </div>
 
-            <div id="choose-platform">Choose platform</div>
+            <div id="choose-platform">Choose the platform.</div>
 
             <div id="platforms">
                 <div className="row">
 
                     <div
                         className="col-md-4"
-                        onClick={() => setPlatform("Youtube")}
                     >
                         <div
                             className="icon-div"
@@ -37,6 +36,7 @@ function Dashboard(): JSX.Element {
                                 (platform !== null && platform !== "Youtube") ?
                                     opacityStyle : {}
                             }
+                            onClick={() => setPlatform("Youtube")}
                         >
                             <FaYoutube className="youtube-icon" />
                             <div>YouTube</div>
@@ -45,7 +45,6 @@ function Dashboard(): JSX.Element {
 
                     <div
                         className="col-md-4"
-                        onClick={() => setPlatform("Facebook")}
                     >
                         <div
                             className="icon-div"
@@ -53,6 +52,7 @@ function Dashboard(): JSX.Element {
                                 (platform !== null && platform !== "Facebook") ?
                                     opacityStyle : {}
                             }
+                            onClick={() => setPlatform("Facebook")}
                         >
                             <FaFacebookSquare className="facebook-icon" />
                             <div>Facebook</div>
@@ -61,7 +61,6 @@ function Dashboard(): JSX.Element {
 
                     <div
                         className="col-md-4"
-                        onClick={() => setPlatform("Twitter")}
                     >
                         <div
                             className="icon-div"
@@ -69,6 +68,8 @@ function Dashboard(): JSX.Element {
                                 (platform !== null && platform !== "Twitter") ?
                                     opacityStyle : {}
                             }
+                            onClick={() => setPlatform("Twitter")}
+
                         >
                             <FaTwitterSquare className="twitter-icon" />
                             <div>Twitter</div>

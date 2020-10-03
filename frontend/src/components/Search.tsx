@@ -21,38 +21,29 @@ function Search(props: SearchProps): JSX.Element {
     switch (props.platform) {
         case "Facebook":
             searchDiv =
-                <>
-                    <div id="enter-name">Now, enter the username</div>
-                    <div id="search">
-                        <div>
-                            <span>facebook.com/</span>{usernameInput}
-                        </div>
+                <div id="search">
+                    <div>
+                        <span>facebook.com/</span>{usernameInput}
                     </div>
-                </>
+                </div>
             break
 
         case "Twitter":
             searchDiv =
-                <>
-                    <div id="enter-name">Now, enter the username</div>
-                    <div id="search">
-                        <div>
-                            <span>twitter.com/</span>{usernameInput}
-                        </div>
+                <div id="search">
+                    <div>
+                        <span>twitter.com/</span>{usernameInput}
                     </div>
-                </>
+                </div>
             break
 
         case "Youtube":
             searchDiv =
-                <>
-                    <div id="enter-name">Now, enter the username</div>
-                    <div id="search">
-                        <div>
-                            <span>youtube.com/user/</span>{usernameInput}
-                        </div>
+                <div id="search">
+                    <div>
+                        <span>youtube.com/user/</span>{usernameInput}
                     </div>
-                </>
+                </div>
     }
 
     let result: JSX.Element = null
@@ -60,17 +51,20 @@ function Search(props: SearchProps): JSX.Element {
     if(props.platform !== null) {
         result =
             <>
+                <div id="enter-name">Enter the username.</div>
                 {searchDiv}
                 <div className="row">
                     <div className="col-md-4"/>
                     <div id="predict-div" className="col-md-4">
                         <button
                             id="predict-button"
-                            onClick={() =>
-                                console.log(
-                                    `Request sent: username=${props.username}, platform=${props.platform}`
-                                )
-                            }
+                            onClick={() => {
+                                if (props.username !== "") {
+                                    console.log(
+                                        `Request sent: username=${props.username}, platform=${props.platform}`
+                                    )
+                                }
+                            }}
                         >
                             Predict
                         </button>

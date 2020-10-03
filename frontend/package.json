@@ -41,9 +41,6 @@
     "webpack-cli": "^3.3.12"
   },
   "dependencies": {
-    "axios": "^0.20.0",
-    "moment": "^2.27.0",
-    "react-color": "^2.18.1",
     "react-icons": "^3.11.0"
   }
 }

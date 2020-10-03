@@ -1,5 +1,5 @@
 import React from 'react'
-import Dummy from "./components/Dummy"
+import Dashboard from "./components/Dashboard"
 
 
 /**
@@ -7,8 +7,8 @@ import Dummy from "./components/Dummy"
  */
 
 const App: React.FC = () => (
-    <div className="container">
-        <Dummy/>
+    <div id="outer-container" className="container">
+        <Dashboard/>
     </div>
 )
 

@@ -1,11 +1,11 @@
 import React from "react"
 import {render} from "@testing-library/react"
 
-import Dummy from "../components/Dummy"
+import Dashboard from "../components/Dashboard"
 
 describe("<Dummy/>", () => {
     it("renders correctly", () => {
-        const {getByText} = render(<Dummy/>)
-        getByText("React loaded correctly.")
+        const {getByText} = render(<Dashboard/>)
+        getByText("Choose platform")
     })
 })

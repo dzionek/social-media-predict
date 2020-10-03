@@ -29,7 +29,7 @@ function checkLinters() {
 
   checkMypy
   checkFlake8
-#  checkEsLint
+  checkEsLint
 }
 
 # Unit/Integration tests

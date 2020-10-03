@@ -1,9 +1,17 @@
-import React from "react"
+import React, { useState } from "react"
 import { SiGithub } from "react-icons/si"
 import { FaYoutube, FaFacebookSquare, FaTwitterSquare } from "react-icons/fa"
 
+import { Platform } from "../utils/types"
+import Search from "./Search"
 
 function Dashboard(): JSX.Element {
+    const [platform, setPlatform] = useState<Platform>(null)
+    const [userName, setUsername] = useState("")
+
+    const opacityStyle = {
+        opacity: 0.3
+    }
 
     return (
         <div id="inner-container">
@@ -19,22 +27,49 @@ function Dashboard(): JSX.Element {
             <div id="platforms">
                 <div className="row">
 
-                    <div className="col-md-4">
-                        <div className="icon-div">
+                    <div
+                        className="col-md-4"
+                        onClick={() => setPlatform("Youtube")}
+                    >
+                        <div
+                            className="icon-div"
+                            style={
+                                (platform !== null && platform !== "Youtube") ?
+                                    opacityStyle : {}
+                            }
+                        >
                             <FaYoutube className="youtube-icon" />
                             <div>YouTube</div>
                         </div>
                     </div>
 
-                    <div className="col-md-4">
-                        <div className="icon-div">
+                    <div
+                        className="col-md-4"
+                        onClick={() => setPlatform("Facebook")}
+                    >
+                        <div
+                            className="icon-div"
+                            style={
+                                (platform !== null && platform !== "Facebook") ?
+                                    opacityStyle : {}
+                            }
+                        >
                             <FaFacebookSquare className="facebook-icon" />
                             <div>Facebook</div>
                         </div>
                     </div>
 
-                    <div className="col-md-4">
-                        <div className="icon-div">
+                    <div
+                        className="col-md-4"
+                        onClick={() => setPlatform("Twitter")}
+                    >
+                        <div
+                            className="icon-div"
+                            style={
+                                (platform !== null && platform !== "Twitter") ?
+                                    opacityStyle : {}
+                            }
+                        >
                             <FaTwitterSquare className="twitter-icon" />
                             <div>Twitter</div>
                         </div>
@@ -43,20 +78,12 @@ function Dashboard(): JSX.Element {
                 </div>
             </div>
 
-            <div id="enter-name">Now, enter the username</div>
-            <div id="search">
-                <div>
-                    <span>youtube.com/user/</span><input/>
-                </div>
-            </div>
+            <Search
+                platform={platform}
+                username={userName}
+                setUsername={setUsername}
+            />
 
-            <div className="row">
-                <div className="col-md-4"/>
-                <div id="predict-div" className="col-md-4">
-                    <button id="predict-button">Predict</button>
-                </div>
-                <div className="col-md-4"/>
-            </div>
         </div>
     )
 }

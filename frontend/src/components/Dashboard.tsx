@@ -1,5 +1,4 @@
 import React, { useState } from "react"
-import { SiGithub } from "react-icons/si"
 import { FaYoutube, FaFacebookSquare, FaTwitterSquare } from "react-icons/fa"
 
 import { Platform } from "../utils/types"
@@ -14,14 +13,7 @@ function Dashboard(): JSX.Element {
     }
 
     return (
-        <div id="inner-container">
-            <div id="logos">
-                <img src="static/small-logo.png" alt="Logo"/>
-                <a href="https://github.com/dzionek/social-media-predict">
-                    <SiGithub className="github-icon" />
-                </a>
-            </div>
-
+        <>
             <div id="choose-platform">Choose the platform.</div>
 
             <div id="platforms">
@@ -33,10 +25,10 @@ function Dashboard(): JSX.Element {
                         <div
                             className="icon-div"
                             style={
-                                (platform !== null && platform !== "Youtube") ?
+                                (platform !== null && platform !== "YouTube") ?
                                     opacityStyle : {}
                             }
-                            onClick={() => setPlatform("Youtube")}
+                            onClick={() => setPlatform("YouTube")}
                         >
                             <FaYoutube className="youtube-icon" />
                             <div>YouTube</div>
@@ -84,8 +76,7 @@ function Dashboard(): JSX.Element {
                 username={userName}
                 setUsername={setUsername}
             />
-
-        </div>
+        </>
     )
 }
 

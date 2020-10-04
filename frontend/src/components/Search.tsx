@@ -1,4 +1,5 @@
 import React, { Dispatch, SetStateAction } from "react"
+import { useHistory } from "react-router-dom"
 
 import { Platform } from "../utils/types"
 
@@ -9,6 +10,8 @@ interface SearchProps {
 }
 
 function Search(props: SearchProps): JSX.Element {
+    const history = useHistory()
+
     let searchDiv: JSX.Element
 
     const usernameInput =
@@ -37,7 +40,7 @@ function Search(props: SearchProps): JSX.Element {
                 </div>
             break
 
-        case "Youtube":
+        case "YouTube":
             searchDiv =
                 <div id="search">
                     <div>
@@ -60,9 +63,10 @@ function Search(props: SearchProps): JSX.Element {
                             id="predict-button"
                             onClick={() => {
                                 if (props.username !== "") {
-                                    console.log(
-                                        `Request sent: username=${props.username}, platform=${props.platform}`
-                                    )
+                                    history.push("/result", {
+                                        username: props.username,
+                                        platform: props.platform
+                                    })
                                 }
                             }}
                         >

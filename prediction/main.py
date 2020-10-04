@@ -1,4 +1,5 @@
 import requests
+from typing import Dict
 
 from .parser import Parser
 
@@ -32,6 +33,6 @@ class Prediction:
     def does_exist(self) -> bool:
         return 'sorry' not in self.content
 
-    def get_parsed(self):
+    def get_parsed(self) -> Dict:
         parser = Parser(self.content)
         return parser.parse()

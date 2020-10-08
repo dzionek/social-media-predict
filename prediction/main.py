@@ -22,8 +22,8 @@ class Prediction:
     def _get_link(self) -> str:
         if self.platform == 'YouTube':
             return f'https://socialblade.com/youtube/channel/{self.username}/monthly'
-        elif self.platform == 'Facebook':
-            return f'https://socialblade.com/facebook/page/{self.username}'
+        elif self.platform == 'Twitch':
+            return f'https://socialblade.com/twitch/user/{self.username}/monthly'
         elif self.platform == 'Twitter':
             return f'https://socialblade.com/twitter/user/{self.username}/monthly'
         else:

@@ -14,6 +14,7 @@ interface ResultProps {
 
 interface Response {
     doesExist: boolean,
+    insignificant?: boolean,
     username?: string,
     picture?: string,
     dates?: [string],
@@ -24,8 +25,9 @@ interface Response {
 
 function Result(props: ResultProps): JSX.Element {
     const [isLoading, setIsLoading] = useState(true)
-    const [isError, setIsError] = useState(false)
     const [response, setResponse] = useState<Response>(null)
+
+    const viewersName = props.state.platform === 'YouTube' ? 'subscribers' : 'followers'
 
     useEffect(() => {
         axios.defaults.xsrfHeaderName = "X-CSRFTOKEN"
@@ -37,8 +39,6 @@ function Result(props: ResultProps): JSX.Element {
         }).then((r: {data: Response}) => {
             setResponse(r.data)
             setIsLoading(false)
-        }).catch(error => {
-            setIsError(true)
         })
     }, [])
 
@@ -46,11 +46,8 @@ function Result(props: ResultProps): JSX.Element {
 
     if (isLoading) {
         content = <div>Loading...</div>
-    } else if (isError) {
-        content = <div>An error occurred</div>
     } else {
-        console.log(response)
-        if (response.doesExist) {
+        if (response.doesExist && !response.insignificant) {
             content =
                 <div className="text-center">
                     <div className="row">
@@ -61,7 +58,7 @@ function Result(props: ResultProps): JSX.Element {
                                 <div className="media-body text-left">
                                     <h3 className="mt-0">{response.username}</h3>
                                     <h5>{props.state.platform}</h5>
-                                    <div>Current subscribers: {response.subscribers[response.subscribers.length - 1]}</div>
+                                    <div>Current {viewersName}: {response.subscribers[response.subscribers.length - 1]}</div>
                                 </div>
                             </div>
                         </div>
@@ -87,7 +84,7 @@ function Result(props: ResultProps): JSX.Element {
                                 ]}
                             layout={{
                                 autosize: true,
-                                title: `Prediction of subscribers for ${response.username} (R^2=${Math.pow(response.r, 2).toFixed(2)})`,
+                                title: `Prediction of ${viewersName} for ${response.username} (R^2=${Math.pow(response.r, 2).toFixed(2)})`,
                                 plot_bgcolor: 'rgba(0,0,0,0)',
                                 paper_bgcolor: 'rgba(0,0,0,0)',
                                 font: {
@@ -109,8 +106,10 @@ function Result(props: ResultProps): JSX.Element {
                 </div>
 
 
+        } else if (response.insignificant) {
+            content = <h1>The given user has too few {viewersName}.</h1>
         } else {
-            content = <h1>The given user does not exist!</h1>
+            content = <h1>The given user does not exist.</h1>
         }
     }
 

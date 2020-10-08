@@ -13,27 +13,55 @@ class Parser:
         return BeautifulSoup(self.html, 'html.parser')
 
     def parse(self) -> Dict:
-        dates, subscribers = self._get_subscribers()
-        return {
-            'doesExist': True,
-            'username': self._get_username(),
-            'picture': self._get_picture(),
-            'dates': dates,
-            'subscribers': subscribers
-        }
+        try:
+            dates, subscribers = self._get_subscribers()
+            return {
+                'doesExist': True,
+                'insignificant': False,
+                'username': self._get_username(),
+                'picture': self._get_picture(),
+                'dates': dates,
+                'subscribers': subscribers
+            }
+        except Exception:
+            return {
+                'doesExist': True,
+                'insignificant': True
+            }
 
     def _get_username(self) -> str:
-        top_info = self.soup.find(id='YouTubeUserTopInfoBlockTop')
-        username_tag = 'h2' if self.platform == 'Twitter' else 'h1'
+        if self.platform == 'Twitch':
+            top_info = self.soup.find(
+                'div', attrs={
+                    'style': "width: 360px; float: left; background: #fff;"
+                }
+            )
+        else:
+            top_info = self.soup.find(id='YouTubeUserTopInfoBlockTop')
+
+        username_tag = 'h1' if self.platform == 'YouTube' else 'h2'
         username = str(top_info.find(username_tag).text)
 
         if self.platform == 'Twitter':
             username = username.split(' @')[0]
+        elif self.platform == 'Twitch':
+            username = username.rstrip()
 
         return username
 
     def _get_picture(self) -> str:
-        picture = self.soup.find(id='YouTubeUserTopInfoAvatar')
+        if self.platform == 'Twitch':
+            top_info = self.soup.find(
+                'div', attrs={
+                    'style': "width: 200px; height: 180px; "
+                             "padding: 25px 90px 15px 90px;"
+                }
+            )
+            picture = top_info.find('img')
+
+        else:
+            picture = self.soup.find(id='YouTubeUserTopInfoAvatar')
+
         return str(picture.attrs.get('src'))
 
     def _get_subscribers(self) -> Tuple[List[str], List[int]]:
@@ -54,6 +82,9 @@ class Parser:
                 int(''.join([ch for ch in subscriber if ch.isnumeric()]))
                 for subscriber in subscribers_to_clean
             ][1:]
+
+        if (not dates) or (not subscribers):
+            raise ValueError('Dates or subscribers cannot be found.')
 
         return dates, subscribers
 

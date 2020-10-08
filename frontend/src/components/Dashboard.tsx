@@ -1,5 +1,5 @@
 import React, { useState } from "react"
-import { FaYoutube, FaFacebookSquare, FaTwitterSquare } from "react-icons/fa"
+import { FaYoutube, FaTwitch, FaTwitterSquare } from "react-icons/fa"
 
 import { Platform } from "../utils/types"
 import Search from "./Search"
@@ -41,13 +41,13 @@ function Dashboard(): JSX.Element {
                         <div
                             className="icon-div"
                             style={
-                                (platform !== null && platform !== "Facebook") ?
+                                (platform !== null && platform !== "Twitch") ?
                                     opacityStyle : {}
                             }
-                            onClick={() => setPlatform("Facebook")}
+                            onClick={() => setPlatform("Twitch")}
                         >
-                            <FaFacebookSquare className="facebook-icon" />
-                            <div>Facebook</div>
+                            <FaTwitch className="twitch-icon" />
+                            <div>Twitch</div>
                         </div>
                     </div>
 

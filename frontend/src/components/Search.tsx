@@ -22,11 +22,11 @@ function Search(props: SearchProps): JSX.Element {
         />
 
     switch (props.platform) {
-        case "Facebook":
+        case "Twitch":
             searchDiv =
                 <div id="search">
                     <div>
-                        <span>facebook.com/</span>{usernameInput}
+                        <span>twitch.tv/</span>{usernameInput}
                     </div>
                 </div>
             break

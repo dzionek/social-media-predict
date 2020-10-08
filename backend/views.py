@@ -16,6 +16,10 @@ def predict(request: HttpRequest) -> JsonResponse:
         return JsonResponse({'doesExist': False}, safe=True)
 
     parsed_response = prediction.get_parsed()
+
+    if parsed_response['insignificant']:
+        return JsonResponse(parsed_response, safe=True)
+
     prediction_response = prediction.get_prediction()
     response = {**parsed_response, **prediction_response}
 

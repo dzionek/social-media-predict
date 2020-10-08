@@ -16,7 +16,7 @@ function Search(props: SearchProps): JSX.Element {
 
     const usernameInput =
         <input
-            placeholder="username"
+            placeholder="user code"
             value={props.username}
             onChange={event => props.setUsername(event.target.value)}
         />
@@ -44,7 +44,7 @@ function Search(props: SearchProps): JSX.Element {
             searchDiv =
                 <div id="search">
                     <div>
-                        <span>youtube.com/user/</span>{usernameInput}
+                        <span>youtube.com/channel/</span>{usernameInput}
                     </div>
                 </div>
     }

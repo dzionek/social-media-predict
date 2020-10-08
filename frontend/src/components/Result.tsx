@@ -16,7 +16,10 @@ interface Response {
     doesExist: boolean,
     username?: string,
     picture?: string,
-    subscribers?: [string, string, string]
+    dates?: [string],
+    subscribers?: [number],
+    r?: number,
+    predicted?: [string, string]
 }
 
 function Result(props: ResultProps): JSX.Element {
@@ -54,11 +57,11 @@ function Result(props: ResultProps): JSX.Element {
                         <div className="col-md-4"/>
                         <div className="col-md-4">
                             <div className="media">
-                                <img src={response.picture} className="img-thumbnail mr-3" alt="Profile picture"/>
+                                <img src={response.picture} className="img-thumbnail mr-3 picture" alt="Profile picture"/>
                                 <div className="media-body text-left">
-                                    <h2 className="mt-0">{response.username}</h2>
+                                    <h3 className="mt-0">{response.username}</h3>
                                     <h5>{props.state.platform}</h5>
-                                    <div>Current subscribers: {response.subscribers[response.subscribers.length - 1][2]}</div>
+                                    <div>Current subscribers: {response.subscribers[response.subscribers.length - 1]}</div>
                                 </div>
                             </div>
                         </div>
@@ -69,19 +72,22 @@ function Result(props: ResultProps): JSX.Element {
                             className="plot"
                             data={[
                                 {
-                                    x: response.subscribers.map(item => item[0]),
-                                    y: response.subscribers.map(item => item[1]),
-                                    type: 'scatter',
-                                    mode: 'lines+markers',
+                                    x: response.dates,
+                                    y: response.subscribers,
                                     marker: {
-                                        size: 15,
                                         color: '#636EFA'
-                                    }
+                                    },
+                                    name: 'last month'
+                                },
+                                {
+                                    x: response.predicted.map(item => item[0]),
+                                    y: response.predicted.map(item => item[1]),
+                                    name: 'predicted'
                                 }
                                 ]}
                             layout={{
                                 autosize: true,
-                                title: `Prediction of subscribers for ${response.username}`,
+                                title: `Prediction of subscribers for ${response.username} (R^2=${Math.pow(response.r, 2).toFixed(2)})`,
                                 plot_bgcolor: 'rgba(0,0,0,0)',
                                 paper_bgcolor: 'rgba(0,0,0,0)',
                                 font: {
@@ -89,7 +95,8 @@ function Result(props: ResultProps): JSX.Element {
                                     size: 15
                                 },
                                 xaxis: {
-                                    showgrid: false
+                                    showgrid: false,
+                                    type: 'date'
                                 },
                                 yaxis: {
                                     gridcolor: '#4a4a4a',
@@ -103,7 +110,7 @@ function Result(props: ResultProps): JSX.Element {
 
 
         } else {
-            content = <div>The given user does not exist!</div>
+            content = <h1>The given user does not exist!</h1>
         }
     }
 

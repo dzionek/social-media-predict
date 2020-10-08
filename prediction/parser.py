@@ -1,45 +1,61 @@
 from bs4 import BeautifulSoup  # type: ignore
 import re
-from typing import List, Dict, Union
+from typing import List, Dict, Tuple
 
 
 class Parser:
-    def __init__(self, html: str) -> None:
+    def __init__(self, html: str, platform: str) -> None:
         self.html = html
+        self.platform = platform
         self.soup = self._get_soup()
 
     def _get_soup(self) -> BeautifulSoup:
         return BeautifulSoup(self.html, 'html.parser')
 
     def parse(self) -> Dict:
+        dates, subscribers = self._get_subscribers()
         return {
             'doesExist': True,
             'username': self._get_username(),
             'picture': self._get_picture(),
-            'subscribers': self._get_subscribers()
+            'dates': dates,
+            'subscribers': subscribers
         }
 
     def _get_username(self) -> str:
         top_info = self.soup.find(id='YouTubeUserTopInfoBlockTop')
-        return str(top_info.find('h1').text)
+        username_tag = 'h2' if self.platform == 'Twitter' else 'h1'
+        username = str(top_info.find(username_tag).text)
+
+        if self.platform == 'Twitter':
+            username = username.split(' @')[0]
+
+        return username
 
     def _get_picture(self) -> str:
         picture = self.soup.find(id='YouTubeUserTopInfoAvatar')
         return str(picture.attrs.get('src'))
 
-    def _get_subscribers(self) -> List[List[Union[str, int]]]:
+    def _get_subscribers(self) -> Tuple[List[str], List[int]]:
         user_content = self.soup.find(id='socialblade-user-content')
-        table_divs = list(user_content.children)[4:61:2]
-        table_divs_children = [list(div.children) for div in table_divs]
+        dates = re.findall(r'\d\d\d\d-\d\d-\d\d', str(user_content))[2:-1]
 
-        return [
-            [
-                re.search(r'(\d|-)+', div[1].text)[0],
-                self.count(re.search(r'\n[\d.]+[A-Z]*', div[5].text)[0][1:]),
-                re.search(r'\n[\d.]+[A-Z]*', div[5].text)[0][1:]
+        if self.platform == 'YouTube':
+            table_divs = list(user_content.children)[4:61:2]
+
+            table_divs_children = [list(div.children) for div in table_divs]
+            subscribers = [
+                self.count(re.search(r'\n[\d.]+[MK]*', div[5].text)[0][1:])
+                for div in table_divs_children
             ]
-            for div in table_divs_children
-        ]
+        else:
+            subscribers_to_clean = re.findall(r'>[\d,]+ +', str(user_content))
+            subscribers = [
+                int(''.join([ch for ch in subscriber if ch.isnumeric()]))
+                for subscriber in subscribers_to_clean
+            ][1:]
+
+        return dates, subscribers
 
     @staticmethod
     def count(parsed_number: str) -> int:

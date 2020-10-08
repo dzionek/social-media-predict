@@ -15,6 +15,8 @@ def predict(request: HttpRequest) -> JsonResponse:
     if not prediction.does_exist():
         return JsonResponse({'doesExist': False}, safe=True)
 
-    response = prediction.get_parsed()
+    parsed_response = prediction.get_parsed()
+    prediction_response = prediction.get_prediction()
+    response = {**parsed_response, **prediction_response}
 
     return JsonResponse(response, safe=True)

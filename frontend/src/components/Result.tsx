@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from "react"
 import { Link } from "react-router-dom"
 import axios from "axios"
+import numbro from "numbro"
 import Plot from "react-plotly.js"
 
 import {Platform} from "../utils/types"
@@ -58,7 +59,13 @@ function Result(props: ResultProps): JSX.Element {
                                 <div className="media-body text-left">
                                     <h3 className="mt-0">{response.username}</h3>
                                     <h5>{props.state.platform}</h5>
-                                    <div>Current {viewersName}: {response.subscribers[response.subscribers.length - 1]}</div>
+                                    <div>
+                                        Current {viewersName}:{'\u00A0'}
+                                        {
+                                            numbro(response.subscribers[response.subscribers.length - 1])
+                                            .format({average: true, totalLength: 3})
+                                        }
+                                    </div>
                                 </div>
                             </div>
                         </div>

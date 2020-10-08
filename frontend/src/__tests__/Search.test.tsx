@@ -4,12 +4,19 @@ import userEvent from "@testing-library/user-event"
 
 import Dashboard from "../components/Dashboard"
 
+const mockHistoryPush = jest.fn()
+
+jest.mock('react-router-dom', () => ({
+    ...jest.requireActual('react-router-dom'),
+    useHistory: () => ({
+        push: mockHistoryPush,
+    })
+}))
+
 describe("<Search/>", () => {
     it("logs the correct parameters", () => {
-        const consoleOutput: string[] = []
 
-        jest.spyOn(console, 'log')
-            .mockImplementationOnce((message: string) => consoleOutput.push(message))
+        const consoleOutput: string[] = []
 
         const {getByText, getByPlaceholderText} = render(<Dashboard/>)
 
@@ -18,10 +25,12 @@ describe("<Search/>", () => {
         fireEvent.click(getByText("Predict"))
         expect(consoleOutput).toEqual([])
 
-        userEvent.type(getByPlaceholderText("username"), "testUser")
+        userEvent.type(getByPlaceholderText("user code"), "testUser")
         fireEvent.click(getByText("Predict"))
 
-        expect(consoleOutput[0]).toContain("username=testUser")
-        expect(consoleOutput[0]).toContain("platform=Youtube")
+        expect(mockHistoryPush)
+            .toHaveBeenCalledWith(
+            "/result", {"platform": "YouTube", "username": "testUser"}
+            )
     })
 })

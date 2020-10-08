@@ -12,46 +12,46 @@ describe("<Dashboard/>", () => {
     it("changes platforms", () => {
         const {getByText, queryByText} = render(<Dashboard/>)
 
-        const youtubeUrl = "youtube.com/user/"
-        const facebookUrl = "facebook.com/"
+        const youtubeUrl = "youtube.com/channel/"
+        const twitchUrl = "twitch.tv/"
         const twitterUrl = "twitter.com/"
 
         expect(queryByText(youtubeUrl)).toBeNull()
-        expect(queryByText(facebookUrl)).toBeNull()
+        expect(queryByText(twitchUrl)).toBeNull()
         expect(queryByText(twitterUrl)).toBeNull()
 
         const youtubeButton = getByText("YouTube")
-        const facebookButton = getByText("Facebook")
+        const twitchButton = getByText("Twitch")
         const twitterButton = getByText("Twitter")
 
         fireEvent.click(youtubeButton)
 
         expect(youtubeButton.parentElement.style.opacity).toBe("")
-        expect(facebookButton.parentElement.style.opacity).toBe("0.3")
+        expect(twitchButton.parentElement.style.opacity).toBe("0.3")
         expect(twitterButton.parentElement.style.opacity).toBe("0.3")
 
         getByText(youtubeUrl)
-        expect(queryByText(facebookUrl)).toBeNull()
+        expect(queryByText(twitchUrl)).toBeNull()
         expect(queryByText(twitterUrl)).toBeNull()
 
-        fireEvent.click(facebookButton)
+        fireEvent.click(twitchButton)
 
         expect(youtubeButton.parentElement.style.opacity).toBe("0.3")
-        expect(facebookButton.parentElement.style.opacity).toBe("")
+        expect(twitchButton.parentElement.style.opacity).toBe("")
         expect(twitterButton.parentElement.style.opacity).toBe("0.3")
 
-        getByText(facebookUrl)
+        getByText(twitchUrl)
         expect(queryByText(youtubeUrl)).toBeNull()
         expect(queryByText(twitterUrl)).toBeNull()
 
         fireEvent.click(twitterButton)
 
         expect(youtubeButton.parentElement.style.opacity).toBe("0.3")
-        expect(facebookButton.parentElement.style.opacity).toBe("0.3")
+        expect(twitchButton.parentElement.style.opacity).toBe("0.3")
         expect(twitterButton.parentElement.style.opacity).toBe("")
 
         getByText(twitterUrl)
         expect(queryByText(youtubeUrl)).toBeNull()
-        expect(queryByText(facebookUrl)).toBeNull()
+        expect(queryByText(twitchUrl)).toBeNull()
     })
 })

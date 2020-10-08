@@ -1,7 +1,7 @@
 import requests
-from typing import Dict, List, Tuple
+from typing import Dict, List, Optional
 from datetime import date, timedelta
-from scipy import stats
+from scipy import stats  # type: ignore
 
 from .parser import Parser
 
@@ -17,15 +17,18 @@ class Prediction:
         self.platform = platform
         self.link = self._get_link()
         self.content = self._get_content()
-        self.parsed = None
+        self.parsed: Optional[Dict] = None
 
     def _get_link(self) -> str:
         if self.platform == 'YouTube':
-            return f'https://socialblade.com/youtube/channel/{self.username}/monthly'
+            return f'https://socialblade.com/youtube/channel/{self.username}' \
+                   '/monthly'
         elif self.platform == 'Twitch':
-            return f'https://socialblade.com/twitch/user/{self.username}/monthly'
+            return f'https://socialblade.com/twitch/user/{self.username}' \
+                   '/monthly'
         elif self.platform == 'Twitter':
-            return f'https://socialblade.com/twitter/user/{self.username}/monthly'
+            return f'https://socialblade.com/twitter/user/{self.username}' \
+                   '/monthly'
         else:
             raise ValueError('The given platform is not supported.')
 
@@ -72,7 +75,10 @@ class Prediction:
         slope, intercept, r, _, _ = stats.linregress(x_values, y_values)
 
         def linear_function(x: int) -> float:
-            return slope * x + intercept
+            return float(slope * x + intercept)
+
+        if r == 0:
+            r = 1
 
         predicted = [
             [

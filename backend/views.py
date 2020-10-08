@@ -2,6 +2,7 @@ from django.http import JsonResponse, HttpRequest
 
 from prediction.main import Prediction
 
+
 def predict(request: HttpRequest) -> JsonResponse:
     data = eval(request.body.decode())
     platform = data.get('platform')

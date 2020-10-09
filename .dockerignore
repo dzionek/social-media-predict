@@ -1,0 +1,10 @@
+.mypy_cache/
+.pytest_cache/
+**/*.pyc
+
+venv/
+
+frontend/coverage
+frontend/node_modules
+frontend/static
+db.sqlite3

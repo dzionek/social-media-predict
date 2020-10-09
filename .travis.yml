@@ -26,7 +26,7 @@ jobs:
         - python manage.py migrate
 
       script:
-        - pytest --ignore=frontend --cov-report=xml --cov-config=.coveragerc --cov=.
+        - pytest --ignore=frontend --cov-report=xml --cov-config=.coveragerc --cov=. -n auto
         - mypy .
         - flake8
 

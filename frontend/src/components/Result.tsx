@@ -4,24 +4,13 @@ import axios from "axios"
 import numbro from "numbro"
 import Plot from "react-plotly.js"
 
-import {Platform} from "../utils/types"
+import { Platform, Response } from "../utils/types"
 
 interface ResultProps {
     state: {
         username: string,
         platform: Platform,
     }
-}
-
-interface Response {
-    doesExist: boolean,
-    insignificant?: boolean,
-    username?: string,
-    picture?: string,
-    dates?: [string],
-    subscribers?: [number],
-    r?: number,
-    predicted?: [string, string]
 }
 
 function Result(props: ResultProps): JSX.Element {

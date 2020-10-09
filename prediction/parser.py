@@ -1,6 +1,6 @@
 from bs4 import BeautifulSoup  # type: ignore
 import re
-from typing import List, Dict, Tuple, Any, cast
+from typing import List, Dict, Tuple, cast
 
 
 class Parser:
@@ -75,7 +75,7 @@ class Parser:
             subscribers = [
                 self.count(
                    cast(
-                       re.Match[Any], re.search(r'\n[\d.]+[MK]*', div[5].text)
+                       re.Match, re.search(r'\n[\d.]+[MK]*', div[5].text)
                    ).group(0)[1:]
                 )
                 for div in table_divs_children

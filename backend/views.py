@@ -1,8 +1,10 @@
 from django.http import JsonResponse, HttpRequest
+from django.views.decorators.http import require_http_methods
 
 from prediction.main import Prediction
 
 
+@require_http_methods(['POST'])
 def predict(request: HttpRequest) -> JsonResponse:
     data = eval(request.body.decode())
     platform = data.get('platform')

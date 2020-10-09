@@ -52,7 +52,6 @@ class Prediction:
 
         dates_str = self.parsed['dates']
         subscribers = self.parsed['subscribers']
-        print(subscribers)
 
         dates = [
             date(*map(int, date_str.split('-')))

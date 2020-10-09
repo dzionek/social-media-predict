@@ -47,7 +47,12 @@ Finally, go back to the main directory and run the server. The app will be prese
 ```shell
 python manage.py runserver
 ```
+<br/>
 
+Before each commit you should check whether CI is passing, make use of *check.sh*
+```shell
+bash check.sh
+```
 
 ### Production
 Use [Docker](https://www.docker.com) to build the image from *Dockerfile* and then run the container on port 8000. The website will be available at *localhost:8000*.

@@ -5,6 +5,10 @@ module.exports = {
     "^.+\\.tsx?$": "ts-jest"
   },
 
+  setupFiles: [
+    '<rootDir>/src/jest.stub.js',
+  ],
+
   setupFilesAfterEnv: [
     "@testing-library/jest-dom/extend-expect"
   ],

@@ -11,19 +11,19 @@ def predict(request: HttpRequest) -> JsonResponse:
     username = data.get('username')
 
     if not (platform and username):
-        return JsonResponse({'error': '404'}, safe=True)
+        return JsonResponse({'error': '404'})
 
     prediction = Prediction(username, platform)
 
     if not prediction.does_exist():
-        return JsonResponse({'doesExist': False}, safe=True)
+        return JsonResponse({'doesExist': False})
 
     parsed_response = prediction.get_parsed()
 
     if parsed_response['insignificant']:
-        return JsonResponse(parsed_response, safe=True)
+        return JsonResponse(parsed_response)
 
     prediction_response = prediction.get_prediction()
     response = {**parsed_response, **prediction_response}
 
-    return JsonResponse(response, safe=True)
+    return JsonResponse(response)

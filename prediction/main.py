@@ -37,7 +37,7 @@ class Prediction:
         return response.text
 
     def does_exist(self) -> bool:
-        return 'sorry' not in self._content
+        return 'DDoS' not in self._content
 
     def get_parsed(self) -> Dict:
         parser = Parser(self._content, self._platform)

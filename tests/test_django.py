@@ -39,7 +39,7 @@ def test_non_existing_user() -> None:
 
 def test_insignificant_user() -> None:
     response = client.post(
-        '/predict/', dict(platform='Twitter', username='dzionkers'),
+        '/predict/', dict(platform='Twitter', username='DariuszDzionek'),
         content_type='application/json'
     )
     assert response.status_code == 200
